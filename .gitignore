@@ -21,9 +21,9 @@
 *.db
 *.opendb
 *.ipch
-Intermediate/*
-Saved/*
-Build/*
-Content/AnimStarterPack/*
-Binaries/*
-Tutorial/*
+Intermediate/
+Saved/
+Build/
+Content/AnimStarterPack/
+Binaries/
+Tutorial/
