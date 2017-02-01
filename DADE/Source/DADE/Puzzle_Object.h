@@ -20,6 +20,8 @@ public:
 		UStaticMeshComponent*_StaticMesh_Mesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool _bInside_MagicArea;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool _bMagicActive;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)

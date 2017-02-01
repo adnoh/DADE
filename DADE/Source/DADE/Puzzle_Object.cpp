@@ -27,7 +27,7 @@ APuzzle_Object::APuzzle_Object()
 	_Box_CollisionBox->OnComponentBeginOverlap.AddDynamic(this, &APuzzle_Object::OnOverlapBegin);
 	_Box_CollisionBox->OnComponentEndOverlap.AddDynamic(this, &APuzzle_Object::OnOverlapEnd);
 	_bMagicActive = false;
-
+	_bInside_MagicArea = false;
 	
 }
 

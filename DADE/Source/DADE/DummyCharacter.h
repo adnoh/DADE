@@ -113,7 +113,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
 		float _MagicArea;
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
+		UParticleSystem* m_MagicAreaEffect;
 
 
 };
