@@ -39,7 +39,7 @@ void APuzzleObject_Plumger::Tick(float DeltaTime)
 			break;
 		case FSM_Plumger_Model1::FSM_Follow:
 			 Dir = _AFollowTarget->GetActorLocation() - GetActorLocation();
-			 length;
+
 			Dir.ToDirectionAndLength(Dir, length);//노말라이즈화 된건지 확인해보기
 			Dir.Z = 0;
 			if (length > _fFollowRange)
@@ -48,7 +48,10 @@ void APuzzleObject_Plumger::Tick(float DeltaTime)
 		case FSM_Plumger_Model1::FSM_Stay:
 			break;
 		case FSM_Plumger_Model1::FSM_TriggerActive:
-			NewRotation = FMath::RInterpTo(_StickSpindle->GetRelativeTransform().Rotator(), _Rotator_AnimateAngle, DeltaTime, 1.0f);
+			
+
+			NewRotation = FMath::RInterpTo(_StickSpindle->GetRelativeTransform().Rotator(), _Rotator_AnimateAngle, DeltaTime, 1);
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("aaf..%f^%f^%f"), NewRotation.Yaw, NewRotation.Roll, NewRotation.Pitch));
 			_StickSpindle->SetRelativeRotation(NewRotation);
 			if (NewRotation.Equals(_Rotator_AnimateAngle, 0.1f))
 			{

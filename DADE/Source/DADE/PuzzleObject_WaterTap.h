@@ -33,15 +33,18 @@ public:
 		virtual	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 
-	
+
 	FSM_WaterTap_Model1 _FSM_Status;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UBoxComponent* _ColWaveZone;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = EditParameter)
 		float _fPushPower;
-
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
+		UParticleSystemComponent* m_WaterTapFlow;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
+		UParticleSystemComponent* m_OverFlow;
 	
 	
 };

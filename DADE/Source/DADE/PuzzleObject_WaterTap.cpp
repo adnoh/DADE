@@ -9,6 +9,10 @@ APuzzleObject_WaterTap::APuzzleObject_WaterTap()
 	_FSM_Status = FSM_WaterTap_Model1::FSM_Sleep;
 	_ColWaveZone = CreateDefaultSubobject<UBoxComponent>(TEXT("Spindle"));
 	_ColWaveZone->SetupAttachment(RootComponent);
+	m_WaterTapFlow = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("WaterTap Particle"));
+	m_WaterTapFlow->SetupAttachment(RootComponent);
+	m_OverFlow = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("OverFlow Particle"));
+	m_OverFlow->SetupAttachment(RootComponent);
 }
 APuzzleObject_WaterTap::~APuzzleObject_WaterTap()
 {
@@ -41,7 +45,8 @@ void APuzzleObject_WaterTap::Tick(float DeltaTime)
 			ADummyCharacter*Temp = Cast<ADummyCharacter>(CollectedActors[iCollected]);
 			if (Temp != NULL)
 			{
-				Temp->AddActorWorldOffset(_Arrow->GetForwardVector() * _fPushPower*DeltaTime);
+				
+						Temp->AddActorWorldOffset(_Arrow->GetForwardVector() * _fPushPower*DeltaTime);
 
 			}
 		}
@@ -61,7 +66,12 @@ void APuzzleObject_WaterTap::OnOverlapBegin(UPrimitiveComponent* OverlappedComp,
 		ADummyCharacter* Temp = Cast<ADummyCharacter>(OtherActor);
 		if (Temp != NULL)
 		{			
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Fafa!!")));
+
 			_FSM_Status = FSM_WaterTap_Model1::FSM_TurnOff;
+			
+			m_WaterTapFlow->SetVisibility(false);
+			m_OverFlow->SetVisibility(false);
 		}
 	}
 	

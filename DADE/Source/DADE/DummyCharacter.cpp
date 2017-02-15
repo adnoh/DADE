@@ -6,6 +6,7 @@
 #include "Puzzle_Object.h"
 #include "Puzzle_Trigger.h"
 #include "PuzzleObject_Vehicle.h"
+
 // Sets default values
 ADummyCharacter::ADummyCharacter()
 {
@@ -56,28 +57,21 @@ ADummyCharacter::ADummyCharacter()
 	m_Box_TriggerCollision->OnComponentEndOverlap.AddDynamic(this, &ADummyCharacter::OnOverlapEnd);
 
 
-	_SM_MagicArea = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MagicArea"));
-	_SM_MagicArea->SetupAttachment(RootComponent);
 	
-	_SM_MagicArea->OnComponentBeginOverlap.AddDynamic(this, &ADummyCharacter::OnOverlapBegin_MagicArea);
-	_SM_MagicArea->OnComponentEndOverlap.AddDynamic(this, &ADummyCharacter::OnOverlapEnd_MagicArea);
-	_SM_MagicArea->SetVisibility(false);
+	////_AMagicArea->SetVisibility(false);
+
 	MagicActive = false;
 }
 void ADummyCharacter::Tick(float DeltaTime)
 {
-	float tmp_AreaScale;
+	//float tmp_AreaScale;
 	Super::Tick(DeltaTime);
 	TestCursorSymbol();
 
-	if (MagicActive) {
-		
-		tmp_AreaScale = FMath::FInterpTo(_SM_MagicArea->GetComponentTransform().GetScale3D().X, _MagicArea, DeltaTime, 0.4f);
-		if (tmp_AreaScale <= _MagicArea - 0.1f || tmp_AreaScale >= _MagicArea + 0.1f) {
-			//GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Grow in %f %f %f"),_SM_MagicArea->GetComponentTransform().GetScale3D().X, tmp_AreaScale, _MagicArea));
-			//_SM_MagicArea->GetComponentTransform().SetScale3D(FVector(tmp_AreaScale, tmp_AreaScale, tmp_AreaScale));
-			_SM_MagicArea->SetWorldScale3D(FVector(tmp_AreaScale, tmp_AreaScale, tmp_AreaScale));
-		}
+	if (_AMagicArea != NULL)
+	{
+		_AMagicArea->_fMagicArea = _MagicArea;
+		_AMagicArea->SetActorLocation(GetActorLocation());
 	}
 	
 	
@@ -136,16 +130,13 @@ void ADummyCharacter::Magic()
 {
 	if (MagicActive)
 	{
-		
 		MagicActive = false;
-		_SM_MagicArea->SetWorldScale3D(FVector(1, 1, 1));
-		_SM_MagicArea->SetVisibility(false);
-		
+		_AMagicArea->ChangeAreaActive(false);
 	}
-	else {
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("magic on")));
+	else
+	{
 		MagicActive = true;
-		_SM_MagicArea->SetVisibility(true);
+		_AMagicArea->ChangeAreaActive(true);
 	}
 }
 void ADummyCharacter::TestMousePicking()
@@ -341,30 +332,5 @@ void ADummyCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, class AA
 			break;
 		}
 
-	}
-}
-
-
-void ADummyCharacter::OnOverlapBegin_MagicArea(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool adnonno, const FHitResult &whatitis)
-{
-	APuzzle_Object*Temp = Cast<APuzzle_Object>(OtherActor);
-	if (Temp != NULL)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Area overlap")));
-		//Temp->OnMagickActive();
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), m_MagicAreaEffect, Temp->GetActorTransform(), true);
-		Temp->_bInside_MagicArea = true;
-	}
-	
-}
-void ADummyCharacter::OnOverlapEnd_MagicArea(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	APuzzle_Object*Temp = Cast<APuzzle_Object>(OtherActor);
-	if (Temp != NULL)
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Area overlap")));
-		//Temp->OnMagickActive();
-		//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), m_MagicAreaEffect, Temp->GetActorTransform(), true);
-		Temp->_bInside_MagicArea = false;
 	}
 }

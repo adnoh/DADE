@@ -43,5 +43,6 @@ public:
 		virtual	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	UFUNCTION()
 		virtual void OnMagickActive();//뭐가 더 필요할 거 같은데 터치시 피킹됬을때 누군가 호출할 함수
+
 	
 };

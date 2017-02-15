@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include "MagicArea.h"
 #include "GameFramework/Character.h"
 #include "DummyCharacter.generated.h"
 
@@ -84,8 +84,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UDecalComponent* CursorToWorld;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-		UStaticMeshComponent*_SM_MagicArea;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Edit Parameter)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AMagicArea*_AMagicArea;
 
 	void TestCursorSymbol();
 	void TestMousePicking();
@@ -99,11 +100,7 @@ public:
 	UFUNCTION()
 		void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	
-	UFUNCTION()
-		void OnOverlapBegin_MagicArea(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool adnonno, const FHitResult &whatitis);
-	UFUNCTION()
-		void OnOverlapEnd_MagicArea(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-
+	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
@@ -113,8 +110,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
 		float _MagicArea;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
-		UParticleSystem* m_MagicAreaEffect;
+
 
 
 };

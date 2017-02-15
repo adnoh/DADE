@@ -19,6 +19,7 @@ public:
 		float m_fFloatingHeighth;
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = EditParameter)
 		APawn* _ARidingTarget;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		UBoxComponent* _Box_RidingPos;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)

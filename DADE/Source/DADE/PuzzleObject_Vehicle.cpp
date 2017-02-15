@@ -10,11 +10,17 @@ APuzzleObject_Vehicle::APuzzleObject_Vehicle()
 {
 	_ARidingTarget = NULL;
 
+
+	_Box_CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Root"));
+	_Box_CollisionBox->SetupAttachment(RootComponent);
+
 	_Box_RidingPos = CreateDefaultSubobject<UBoxComponent>(TEXT("RidingPos"));
 	_Box_RidingPos->SetupAttachment(RootComponent);
 
 	_Box_EscapePos = CreateDefaultSubobject<UBoxComponent>(TEXT("EscapePos"));
 	_Box_EscapePos->SetupAttachment(RootComponent);
+
+
 
 	PrimaryActorTick.bCanEverTick = true;
 	Controller = NULL;
