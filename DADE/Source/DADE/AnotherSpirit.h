@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include "DummyCharacter.h"
 #include "GameFramework/Actor.h"
 #include "AnotherSpirit.generated.h"
 
@@ -19,15 +19,14 @@ public:
 		UArrowComponent*_Arrow;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent*_StaticMesh_Mesh;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-		UBoxComponent*_RidingPos;
+	
 	UFUNCTION()
 		virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool adnonno, const FHitResult &whatitis);
 	UFUNCTION()
 		virtual	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = EditParameter)
-		AActor* _HeroActor;
+		ADummyCharacter* _HeroActor;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
@@ -36,5 +35,6 @@ public:
 
 	
 	bool _fResscued;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
+		UParticleSystem* m_MagicAreaEffect;
 };

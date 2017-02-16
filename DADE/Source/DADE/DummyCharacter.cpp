@@ -56,7 +56,8 @@ ADummyCharacter::ADummyCharacter()
 	m_Box_TriggerCollision->OnComponentBeginOverlap.AddDynamic(this, &ADummyCharacter::OnOverlapBegin);
 	m_Box_TriggerCollision->OnComponentEndOverlap.AddDynamic(this, &ADummyCharacter::OnOverlapEnd);
 
-
+	m_Box_RidingPos = CreateDefaultSubobject<UBoxComponent>(TEXT("RidingPos"));
+	m_Box_RidingPos->SetupAttachment(RootComponent);
 	
 	////_AMagicArea->SetVisibility(false);
 

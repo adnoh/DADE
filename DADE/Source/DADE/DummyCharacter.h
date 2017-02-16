@@ -111,6 +111,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = EditParameter)
 		float _MagicArea;
 
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		UBoxComponent* m_Box_RidingPos;
 
 };
